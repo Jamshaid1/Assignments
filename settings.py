@@ -18,6 +18,13 @@ DOWNLOAD_HANDLERS = {
   's3': None,
 }
 
+# Database Settings
+# --------------------
+databaseName = 'scrap_hypedc'
+databaseUser = 'postgres'
+databaseHost = 'localhost'
+databaseTable = 'hypedc_products'
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'scrap_hypedc (+http://www.yourdomain.com)'
 
