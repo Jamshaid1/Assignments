@@ -23,6 +23,7 @@ class HypedcSpider(scrapy.Spider):
         for url in product_urls:
             yield scrapy.Request(url, callback=self.product_detail)
         pass
+     
     def product_detail(self, response):
         item = ScrapHypedcItem()
         name = response.xpath('//h1[@class="product-name"]/text()').extract()
@@ -30,15 +31,13 @@ class HypedcSpider(scrapy.Spider):
         color = response.xpath('//h3[@class="h4 product-colour"]/text()').extract()
         brand_name = response.xpath('//span[@class="brand-name"]/text()').extract()
         
-        brand_detail = {"product_url": "","product_name": "", "product_color": "", "currency": "AUD", "product_price": ""}
-        brand_detail['product_url'] = ''.join(info[14]).strip() # return product_url
-        brand_detail['product_price'] = ''.join(info[18]).strip()# return product_price
-        brand_detail['currency'] = ''.join(info[19]).strip() # return type of currency
-        brand_detail['product_name'] = ''.join(name).strip()
-        brand_detail['product_color'] = ','.join(color).strip()
-        brand_detail['brand_name'] = ''.join(brand_name[0]).strip()
         
-        item['brand'] = brand_detail
+        item['product_url'] = ''.join(info[14]).strip() # return product_url
+        item['product_price'] = ''.join(info[18]).strip()# return product_price
+        item['currency'] = ''.join(info[19]).strip() # return type of currency
+        item['product_name'] = ''.join(name).strip()
+        item['product_color'] = ','.join(color).strip()
+        item['brand_name'] = ''.join(brand_name[0]).strip()
         
         yield item
 

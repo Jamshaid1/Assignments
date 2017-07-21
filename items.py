@@ -11,5 +11,12 @@ import scrapy
 class ScrapHypedcItem(scrapy.Item):
     # define the fields for your item here like:
      
-     brand = scrapy.Field()
+     
+     product_url = scrapy.Field()
+     product_price = scrapy.Field()
+     currency = scrapy.Field()
+     product_name = scrapy.Field()
+     product_color = scrapy.Field()
+     brand_name = scrapy.Field()
+        
     

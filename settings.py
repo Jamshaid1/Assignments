@@ -20,9 +20,10 @@ DOWNLOAD_HANDLERS = {
 
 # Database Settings
 # --------------------
-databaseName = 'scrap_hypedc'
+databaseName = 'hypedcDB'
+databasePwd = 'arbisoft'
 databaseUser = 'postgres'
-databaseHost = 'localhost'
+databaseHost = '127.0.0.1'
 databaseTable = 'hypedc_products'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
