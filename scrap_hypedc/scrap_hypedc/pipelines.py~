@@ -1,0 +1,79 @@
+# -*- coding: utf-8 -*-
+
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+from scrap_hypedc import settings
+import psycopg2
+import sqlalchemy
+from sqlalchemy import Table, Column, Integer, String
+
+class ScrapHypedcPipeline(object):
+     con=""
+     meta=""
+     def __init__(self):
+         
+         db = settings.databaseName
+         password = settings.databasePwd
+         user = settings.databaseUser
+         host = settings.host
+         port = settings.port
+ 
+         # connect with the help of the PostgreSQL URL
+         # postgresql://admin:****@localhost:5432/crawl_website
+         url = 'postgresql://{}:{}@{}:{}/{}'
+         url = url.format(user, password, host, port, db)
+         global con
+         con = sqlalchemy.create_engine(url, client_encoding='utf8')
+         
+         # bind the connection to MetaData()
+         global meta
+         meta = sqlalchemy.MetaData(bind=con, reflect=True)
+         con.execute("DROP TABLE IF EXISTS product_info")
+         
+         #create table product_info
+         product_info = Table('product_info',meta,
+         Column('product_name', String),
+         Column('brand', String),
+         Column('color', String),
+         Column('currency', String),
+         Column('price', String),
+         Column('product_url', String)
+         )
+         meta.create_all(con)
+         #clause = product_info.insert().values(
+         #product_name='sneeker',
+         #brand = 'Nike',
+         #color = 'red',
+         #currency = 'AUD',
+         #price = '200',
+         #product_url = 'https://www.hypedc.com'
+         #)
+
+         #con.execute(clause)
+    
+     def process_item(self, item, spider):
+         #databaseName = settings.databaseName
+         #databasePassword = settings.databasePwd
+         #databaseUser = settings.databaseUser
+         #databaseHost = settings.databaseHost
+         
+         #conn_string = "dbname='%s' psd='%s' user='%s' host='%s'" % 
+         #conn_string = "dbname='%s' user='%s' password='%s' host='%s'" % (databaseName, databaseUser, databasePassword, databaseHost)
+         #self.conn = psycopg2.connect(conn_string)
+         #self.cur = self.conn.cursor()
+         #keys = item.keys()
+         #data = [item[k] for k in keys] # make a list of each key
+         #instr = 'INSERT INTO {table} ({keys}) VALUES ({placeholders});'.format( 
+         #table = databaseTable, 
+         #keys = ", ".join(keys), #iterate through keys, seperated by comma
+         #placeholders = ", ".join("'"+d+"'" for d in data) 
+         #)
+           
+         #self.cur.execute(instr, data) # Combine the instructions and data
+         #self.conn.commit()
+         
+         
+         con.execute(meta.tables['product_info'].insert(),item)
+         return item
