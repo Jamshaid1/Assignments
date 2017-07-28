@@ -10,5 +10,5 @@
 
 # Scrapy Assignment (Write an application that recursively crawls a website.)
 
-# Scrap_hypedc crawl website: https://www.hypedc.com
+# Scrap_hypedc crawl website: https://www.hypedc.com and fetch product detail 
 
