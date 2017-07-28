@@ -1,0 +1,3 @@
+scrap website : https://www.hypedc.com/
+fetch product info :  {"product_url": "https://www.hypedc.com/nmd-r2-pk-white-white-black.html/", "gender": "Men", "product_color": "White/White/Black", "currency": "AUD", "product_price": "269.95", "product_name": "NMD_R2 PK"}
+and store in postgresql using SQLalchemy
